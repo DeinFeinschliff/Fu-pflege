@@ -130,7 +130,7 @@ export default function Home() {
                 <Accordion items={problemfuesse} />
               </div>
               <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center">
-                <PillButton href="#kontakt" className="shrink-0">
+                <PillButton href="#kontakt" className="shrink-0 self-start">
                   Beratung anfragen
                 </PillButton>
                 <p className="text-[0.78rem]/relaxed text-ink-faint">
@@ -138,14 +138,14 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="relative min-h-[20rem] lg:min-h-full">
+            <div className="relative aspect-[3/4] sm:aspect-[4/3] lg:aspect-auto lg:min-h-full">
               <Image
                 src={fuesse}
                 alt="Gepflegte Füße mit hellem Nagellack auf Naturstein"
                 fill
                 quality={90}
                 sizes="(max-width: 1024px) 100vw, 860px"
-                className="object-cover object-[center_65%]"
+                className="object-cover object-[center_70%] lg:object-[center_65%]"
                 placeholder="blur"
               />
               <div className={imgTint} />
