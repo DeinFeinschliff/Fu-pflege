@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* Design-Tokens übernommen von feinschliff-nuertingen.de */
+@theme {
+  --font-sans: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
+
+  --color-cream-50: #faf8f4;
+  --color-gold: #be9e6b;
+  --color-gold-soft: #d8c19a;
+  --color-gold-deep: #6e5122;
+  --color-taupe: #a2947f;
+  --color-ink: #3a342c;
+  --color-ink-soft: #574f45;
+  --color-ink-faint: #7f7568;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  /* Beiger Hintergrund statt Video */
+  background-color: #cabca9;
+  background-image:
+    radial-gradient(120% 90% at 18% 4%, #f3ece1 0%, #0000 52%),
+    radial-gradient(90% 70% at 85% 0, #e2d6c5 0%, #0000 58%),
+    radial-gradient(80% 60% at 95% 42%, #d6c8b4 0%, #0000 55%),
+    radial-gradient(110% 80% at 8% 62%, #e3d8c9 0%, #0000 58%),
+    radial-gradient(120% 90% at 50% 105%, #b8a68f 0%, #0000 62%);
+  background-attachment: fixed;
+  overflow-x: clip;
+}
+
+/* Feine Papier-Körnung über dem beigen Hintergrund */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.38 0 0 0 0 0.3 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@layer components {
+  .glass {
+    -webkit-backdrop-filter: blur(28px) saturate(115%);
+    backdrop-filter: blur(28px) saturate(115%);
+    background: linear-gradient(135deg, #fdf9f370, #fcf6ee33);
+    border: 1px solid #ffffff8c;
+    box-shadow: 0 24px 70px -28px #58473359, inset 0 1px #ffffffb3;
+  }
+  .glass-soft {
+    -webkit-backdrop-filter: blur(20px) saturate(110%);
+    backdrop-filter: blur(20px) saturate(110%);
+    background: linear-gradient(135deg, #fffdf966, #fcf6ed2e);
+    border: 1px solid #ffffff6b;
+    box-shadow: 0 18px 50px -26px #58473347;
+  }
+  .glass-menu {
+    -webkit-backdrop-filter: blur(30px) saturate(120%);
+    backdrop-filter: blur(30px) saturate(120%);
+    background: linear-gradient(150deg, #faf6eff7, #f3ece2f0);
+    border: 1px solid #ffffffbf;
+    box-shadow: 0 30px 80px -30px #3c2d1e73, inset 0 1px #fffc;
+  }
+  .glass-tile {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    background: linear-gradient(160deg, #fffdfab8, #faf3e96b);
+    border: 1px solid #fff9;
+    box-shadow: 0 12px 34px -20px #5847334d;
+    transition:
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.5s;
+  }
+
+  .eyebrow {
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-size: 0.74rem;
+    font-weight: 500;
+  }
+  .label-xs {
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-size: 0.6875rem;
+    font-weight: 400;
+  }
+  .display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 300;
+    line-height: 1.15;
+    font-variant-numeric: lining-nums;
+  }
+
+  /* Goldenes „&“ in der Wortmarke */
+  .gold-text {
+    background: linear-gradient(100deg, #a07a3c 0%, #d9bd84 28%, #b08a4a 52%, #e6cf9c 74%, #9c763a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Einblenden beim Scrollen */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Headerbild weich in den Hintergrund auslaufen lassen */
+.hero-fade {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+@media (min-width: 1024px) {
+  .hero-fade {
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 42%),
+      linear-gradient(to bottom, #000 78%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 42%),
+      linear-gradient(to bottom, #000 78%, transparent 100%);
+    mask-composite: intersect;
+  }
+}
+
+dialog::backdrop {
+  background: #3a342c66;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}

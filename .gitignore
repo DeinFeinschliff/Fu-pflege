@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.vercel/
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+.env*
+node_modules
+
+# Interne Notizen (alte Website), nicht Teil der Seite
+notes/
